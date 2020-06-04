@@ -12,11 +12,15 @@ class test
   static String dbURL = "jdbc:mysql://localhost:3306/sampledb";
   static String username = "root";
   static String password = "imindian";
+  static int str1=0;
+  static String str2="";
+  static String loginstatus="";
+  static String message1="";
     public static void main(String[] args) //main function
     { Scanner sc = new Scanner(System.in);
     	
     	int choiceofpost,choiceofoperation,userLoginChoice;
-    	
+    	do{message1="";
     	System.out.println("press 1 if you are a new user" );
     	System.out.println("press 2 if you already have an account and want to login" );
     	userLoginChoice=sc.nextInt();
@@ -39,12 +43,12 @@ class test
     	    Connection conn = DriverManager.getConnection(dbURL, username, password);
     	    Statement stmt = conn.createStatement();
     	    if (conn != null) 
-    	    {
+    	    {   
     	        System.out.println("Connected to database for login");
     	        System.out.print("Enter your id : ");  
-    	        int str1 = sc.nextInt();//entering id of the user
+    	         str1 = sc.nextInt();//entering id of the user
     	        System.out.print("Enter the user password : ");  
-    	        String str2 = sc.next();//entering password of user
+    	        str2 = sc.next();//entering password of user
     	        do{
     	        	System.out.println("press 1 if you are a bank manager");
     	        	System.out.println("press 2 if you are a third party manager");
@@ -62,20 +66,25 @@ class test
     	                post="tpa"; 
     	                break;
     	            default: 
-    	            	System.out.println("invalid choice"); 
-    	                break; 
+    	            	String message="invalid choice"; 
+    	            	System.out.println(message);
+    	            	System.out.println("enter post again ");
+    	            	break;
+    	                 
     	        	}
     	        	}while(choiceofpost!=1 && choiceofpost!=2 && choiceofpost!=3  );
+    	       
     	        //CHECKING IF CREDENTIALS EXIST IN LOGIN TABLE
     	        ResultSet rs = stmt.executeQuery("select * from login where id='" + str1 + "' and password='" + str2 + "' and post='" + post +"'"); 
     	      
     	        if (rs.next())  
     	         {id= str1;  //id for the whole program is the id you entered while u login(if you login successfully)
+    	         loginstatus="loggedin";
     	         }
     	          
     	        else  
-    	         {System.out.println("Invalid user name and password");  
-    	           
+    	         {message1="Invalid user name and password";  
+    	          System.out.println(message1);  
     	         }
     	        
     	        }
@@ -90,9 +99,7 @@ class test
     
     	
     	
-    	 
-    	
-    	if(post=="bm")
+    	if( loginstatus=="loggedin" && post=="bm")
     	{
     		 do{//if your post is of a bank manager then these are your set of functions
                  
@@ -132,7 +139,7 @@ class test
          }while(choiceofoperation!=5);
     		
     	}
-    	else if (post=="tpm")
+    	else if (loginstatus=="loggedin" && post=="tpm")
     	{
     		do{//if your post is of a third party manager then these are your set of functions
                 
@@ -163,7 +170,7 @@ class test
         }while(choiceofoperation!=3);
     		
     	}
-    	else if (post=="tpa")
+    	else if (loginstatus=="loggedin" && post=="tpa")
     	{
            do{//if your post is of a third party agent then these are your set of functions
                 
@@ -194,7 +201,7 @@ class test
         }while(choiceofoperation!=4);
     		
     	
-    	}      	
+    	} }while( message1=="Invalid user name and password");     	
     	    
     
     }
