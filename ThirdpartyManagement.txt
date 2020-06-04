@@ -23,15 +23,18 @@ class test
     	do{message1="";
     	System.out.println("press 1 if you are a new user" );
     	System.out.println("press 2 if you already have an account and want to login" );
-    	userLoginChoice=sc.nextInt();
-    	
+    	    	
     	//loop for getting correct user choice
-    	do{switch(userLoginChoice){
+    	do
+    	{  userLoginChoice=sc.nextInt();
+
+    		switch(userLoginChoice){
     	case 1 : signup();// function to sign up as a new user
     	break;
     	case 2:System.out.println("proceeding to login....");
     	break;
-    	default:System.out.println("invalid choice.");
+    	default:System.out.println("invalid choice.enter again");
+    	break;
     	}
     		
     	}while(userLoginChoice!=1 && userLoginChoice!=2);
