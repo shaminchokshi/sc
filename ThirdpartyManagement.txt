@@ -201,7 +201,7 @@ class test
                        	           System.out.println("Invalid choice:");
                                         break;
                 }
-        }while(choiceofoperation!=4);
+        }while(choiceofoperation!=3);
     		
     	
     	} }while( message1=="Invalid user name and password");     	
@@ -568,4 +568,3 @@ class test
         }
       }
 } 
-
